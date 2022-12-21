@@ -13,17 +13,17 @@ import { Unlocked } from '@/components/icons/unlocked';
 
 const menuItems = [
   {
-    name: 'Getting Started',
+    name: 'Overview',
     icon: <HomeIcon />,
     href: routes.gettingStarted,
   },
   {
-    name: 'Sign',
+    name: 'Send file',
     icon: <ExchangeIcon />,
     href: routes.sign,
   },
   {
-    name: 'Decrypt',
+    name: 'Receive File',
     icon: <Unlocked />,
     href: routes.decrypt,
   },

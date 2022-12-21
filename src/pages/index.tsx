@@ -39,12 +39,12 @@ const GettingStartedPage: NextPageWithLayout = () => {
   return (
     <>
       <NextSeo
-        title="Leo Wallet | Getting Started"
-        description="How to get started using the Leo Wallet"
+        title="zkDrop.xyz | Digital ID for Aleo"
+        description="Aleo based Digital ID concept"
       />
       <div className="mx-auto w-full px-4 pt-8 pb-14 sm:px-6 sm:pb-20 sm:pt-12 lg:px-8 xl:px-10 2xl:px-0">
         <h2 className="mb-6 text-lg font-medium uppercase tracking-wider text-gray-900 dark:text-white sm:mb-10 sm:text-2xl">
-          Getting Started
+          zkDrop.xyz Overview
         </h2>
         <Section
           title="STEP 1 - GET A WALLET"
@@ -69,7 +69,7 @@ const GettingStartedPage: NextPageWithLayout = () => {
           <br />
           <WalletMultiButton className="bg-[#154bf9]" />
         </Section>
-        <Section title="STEP 4 - START SIGNING" bgColor="">
+        <Section title="STEP 4 - START zkDrop" bgColor="">
           &bull; Click on the button below to start signing your first Aleo
           messages! <br /> <br />
           <a href={`${routes.sign}`}>

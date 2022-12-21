@@ -3,7 +3,7 @@ import AnchorLink from '@/components/ui/links/anchor-link';
 import { useIsMounted } from '@/lib/hooks/use-is-mounted';
 import { useIsDarkMode } from '@/lib/hooks/use-is-dark-mode';
 import lightLogo from '@/assets/images/logo.svg';
-import darkLogo from '@/assets/images/logo-white.svg';
+import darkLogo from '@/assets/images/icon-128-white.png';
 import logo from '@/assets/images/icon-128.png';
 
 const Logo: React.FC<React.SVGAttributes<{}>> = (props) => {
@@ -18,7 +18,7 @@ const Logo: React.FC<React.SVGAttributes<{}>> = (props) => {
     >
       <span className="relative flex overflow-hidden">
         {isMounted && isDarkMode && (
-          <Image src={logo} alt="Leo Wallet" priority />
+          <Image src={darkLogo} alt="Leo Wallet" priority />
         )}
         {isMounted && !isDarkMode && (
           <Image src={logo} alt="Leo Wallet" priority />
