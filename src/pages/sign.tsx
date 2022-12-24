@@ -51,12 +51,11 @@ const SignPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <FilesTable />
       <NextSeo
         title="zkDrop.xyz | Receive Files"
         description="Aleo based Digital ID concept"
       />
-
+      <FilesTable aleo_address={publicKey} />
       <Trade>
         <form
           className="relative flex w-full rounded-full md:w-auto"
