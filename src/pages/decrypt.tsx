@@ -47,8 +47,8 @@ const DecryptPage: NextPageWithLayout = () => {
   return (
     <>
       <NextSeo
-        title="Leo Wallet Decrypt"
-        description="Decrypt with the Leo Wallet"
+        title="zkDrop.xyz | Send Files"
+        description="Aleo based Digital ID concept"
       />
       <Trade>
         <form

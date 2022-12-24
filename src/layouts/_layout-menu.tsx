@@ -18,7 +18,7 @@ const MenuLinks = [
       { name: 'Minimal', href: '/minimal' },
     ],
   },
-  { name: 'Sign', href: '/sign' },
+  { name: 'Receive', href: '/receive' },
   { name: 'Decrypt', href: '/decrypt' },
 ];
 

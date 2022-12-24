@@ -11,6 +11,8 @@ import { useCopyToClipboard } from '@/lib/hooks/use-copy-to-clipboard';
 import { Copy } from '@/components/icons/copy';
 import { WalletNotConnectedError } from '@demox-labs/aleo-wallet-adapter-base';
 
+import FilesTable from '@/components/ui/files';
+
 const SignPage: NextPageWithLayout = () => {
   const { wallet, publicKey, sendTransaction, signAllTransactions } =
     useWallet();
@@ -49,10 +51,12 @@ const SignPage: NextPageWithLayout = () => {
 
   return (
     <>
+      <FilesTable />
       <NextSeo
-        title="Leo Wallet Sign"
-        description="Sign Messages with the Leo Wallet"
+        title="zkDrop.xyz | Receive Files"
+        description="Aleo based Digital ID concept"
       />
+
       <Trade>
         <form
           className="relative flex w-full rounded-full md:w-auto"

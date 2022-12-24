@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import Logo from '@/components/ui/logo';
+// import QR from '@/components/ui/qr';
 import { MenuItem } from '@/components/ui/collapsible-menu';
 import Scrollbar from '@/components/ui/scrollbar';
 import Button from '@/components/ui/button';
@@ -18,12 +19,12 @@ const menuItems = [
     href: routes.gettingStarted,
   },
   {
-    name: 'Send file',
+    name: 'Receive file',
     icon: <ExchangeIcon />,
     href: routes.sign,
   },
   {
-    name: 'Receive File',
+    name: 'Send File',
     icon: <Unlocked />,
     href: routes.decrypt,
   },
@@ -44,6 +45,9 @@ export default function Sidebar({ className }: SidebarProps) {
     >
       <div className="relative flex flex-col items-center justify-between px-6 py-4 2xl:px-8">
         <Logo />
+
+        {/* <QR /> */}
+
         <div className="md:hidden">
           <Button
             title="Close"

@@ -5,6 +5,19 @@ import Button from '@/components/ui/button';
 import routes from '@/config/routes';
 import { WalletMultiButton } from '@demox-labs/aleo-wallet-adapter-reactui';
 
+// import QR from '@/components/ui/qr';
+
+import React, { useState, useEffect, FormEvent, SyntheticEvent } from 'react';
+
+import { useWallet } from '@demox-labs/aleo-wallet-adapter-react';
+import { LeoWalletAdapter } from '@demox-labs/aleo-wallet-adapter-leo';
+import { Check } from '@/components/icons/check';
+import { useCopyToClipboard } from '@/lib/hooks/use-copy-to-clipboard';
+import { Copy } from '@/components/icons/copy';
+import { WalletNotConnectedError } from '@demox-labs/aleo-wallet-adapter-base';
+
+import { useQRCode } from 'next-qrcode';
+
 type SectionProps = {
   title: string;
   bgColor: string;
@@ -35,7 +48,49 @@ function Section({
   );
 }
 
+type QRProps = {
+  aleo_address: string;
+};
+
+function QR({ aleo_address, children }: React.PropsWithChildren<QRProps>) {
+  const { Image } = useQRCode();
+
+  const url = 'https://www.zkdrop.xyz/api/account/' + aleo_address;
+
+  return (
+    <Image
+      text={url}
+      options={{
+        type: 'image/jpeg',
+        quality: 0.3,
+        level: 'M',
+        margin: 3,
+        scale: 4,
+        width: 200,
+        color: {
+          dark: '#010599FF',
+          light: '#FFFFFFFF',
+        },
+      }}
+    />
+  );
+}
+
 const GettingStartedPage: NextPageWithLayout = () => {
+  const { wallet, publicKey, sendTransaction, signAllTransactions } =
+    useWallet();
+  let [message, setMessage] = useState('');
+  let [signature, setSignature] = useState('');
+  let [copyButtonStatus, setCopyButtonStatus] = useState(false);
+  let [_, copyToClipboard] = useCopyToClipboard();
+  const handleCopyToClipboard = () => {
+    copyToClipboard(signature);
+    setCopyButtonStatus(true);
+    setTimeout(() => {
+      setCopyButtonStatus(copyButtonStatus);
+    }, 1500);
+  };
+
   return (
     <>
       <NextSeo
@@ -68,12 +123,14 @@ const GettingStartedPage: NextPageWithLayout = () => {
           our site by clicking the button below <br />
           <br />
           <WalletMultiButton className="bg-[#154bf9]" />
+          <QR aleo_address={publicKey} />
+          {/* <QR2 /> */}
         </Section>
         <Section title="STEP 4 - START zkDrop" bgColor="">
           &bull; Click on the button below to start signing your first Aleo
           messages! <br /> <br />
           <a href={`${routes.sign}`}>
-            <Button>Start Signing</Button>
+            <Button>Check your files</Button>
           </a>
         </Section>
       </div>
