@@ -9,23 +9,26 @@ export default function FilesTable({
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const query =
-      'https://api.zkdrop.xyz/api/receive/aleo18s7l90nhhw6jsz60wl6la0k8zzp2q7u5esdjmr7xpyl9d96rzvgsz2n4kx';
-
     async function fetchData() {
       try {
-        const res = await axios.get(
-          'https://api.zkdrop.xyz/api/receive/aleo18s7l90nhhw6jsz60wl6la0k8zzp2q7u5esdjmr7xpyl9d96rzvgsz2n4kx'
-        );
-        setPosts(res.data);
+        if (aleo_address) {
+          const res = await axios.get(
+            `https://api.zkdrop.xyz/api/receive/${aleo_address}`
+          );
+          setPosts(res.data);
+        }
       } catch (err) {
         console.log(err);
       }
     }
+    console.log(aleo_address);
     fetchData();
-  }, []);
+  }, [aleo_address]);
 
-  console.log(posts);
-
-  return <div>{posts.recipient_address}</div>;
+  return (
+    <div>
+      Sender: {posts.sender_address} Recepient: {posts.recipient_address} File:{' '}
+      {posts.ipfs_hash}{' '}
+    </div>
+  );
 }
