@@ -13,7 +13,27 @@ import { WalletNotConnectedError } from '@demox-labs/aleo-wallet-adapter-base';
 
 import FilesTable from '@/components/ui/files';
 
+import Table from '@/components/ui/table';
+
 const SignPage: NextPageWithLayout = () => {
+  const stockItems = [
+    {
+      id: 1,
+      name: 'Pencil',
+      count: 3,
+    },
+    {
+      id: 2,
+      name: 'Paper',
+      count: 4,
+    },
+    {
+      id: 3,
+      name: 'Scissors',
+      count: 4,
+    },
+  ];
+
   const { wallet, publicKey, sendTransaction, signAllTransactions } =
     useWallet();
   let [message, setMessage] = useState('');
@@ -49,6 +69,22 @@ const SignPage: NextPageWithLayout = () => {
     setMessage(event.currentTarget.value);
   };
 
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        let stored = localStorage.getItem('received_files');
+        var filesFromLocalStorage = JSON.parse(stored);
+
+        setPosts(filesFromLocalStorage);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       <NextSeo
@@ -56,7 +92,15 @@ const SignPage: NextPageWithLayout = () => {
         description="Aleo based Digital ID concept"
       />
       <FilesTable aleo_address={publicKey} />
+
       <Trade>
+        <Table
+          headers={{
+            id: 'Sender',
+            count: 'IPFS Hash',
+          }}
+          items={posts}
+        />
         <form
           className="relative flex w-full rounded-full md:w-auto"
           noValidate
@@ -68,7 +112,7 @@ const SignPage: NextPageWithLayout = () => {
           <label className="flex w-full items-center">
             <input
               className="h-11 w-full appearance-none rounded-lg border-2 border-gray-200 bg-transparent py-1 text-sm tracking-tighter text-gray-900 outline-none transition-all placeholder:text-gray-600 focus:border-gray-900 ltr:pr-5 ltr:pl-10 rtl:pr-10 dark:border-gray-600 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-500"
-              placeholder="Message to Sign"
+              placeholder="Enter IPFS hash"
               autoComplete="off"
               onChange={(event: FormEvent<Element>) => handleChange(event)}
             />
@@ -81,7 +125,7 @@ const SignPage: NextPageWithLayout = () => {
               color="white"
               className="ml-4 shadow-card dark:bg-gray-700 md:h-10 md:px-5 xl:h-12 xl:px-7"
             >
-              {!publicKey ? 'Connect Your Wallet' : 'Sign'}
+              {!publicKey ? 'Connect Your Wallet' : 'Open File'}
             </Button>
           </label>
         </form>
