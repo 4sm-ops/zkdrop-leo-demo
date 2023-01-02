@@ -21,20 +21,13 @@ import logo from '@/assets/images/icon-128.png';
 
 import { useQRCode } from 'next-qrcode';
 
-const QR: React.FC<React.SVGAttributes<{}>> = (children, props) => {
+const QR: React.FC<React.SVGAttributes<{}>> = (
+  aleo_address,
+  children,
+  props
+) => {
   const isMounted = useIsMounted();
   const { isDarkMode } = useIsDarkMode();
-
-  // const { wallet, publicKey, sendTransaction, signAllTransactions } =
-  //   useWallet();
-  // const { setVisible } = useWalletModal();
-
-  // const base58 = useMemo(() => publicKey?.toString(), [publicKey]);
-  // const content = useMemo(() => {
-  //     if (children) return children;
-  //     if (!wallet || !base58) return null;
-  //     return base58.slice(0, 4) + '..' + base58.slice(-4);
-  // }, [children, wallet, base58]);
 
   const { Image } = useQRCode();
 

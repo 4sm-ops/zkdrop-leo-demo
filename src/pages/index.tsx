@@ -124,7 +124,6 @@ const GettingStartedPage: NextPageWithLayout = () => {
           <br />
           <WalletMultiButton className="bg-[#154bf9]" />
           <QR aleo_address={publicKey} />
-          {/* <QR2 /> */}
         </Section>
         <Section title="STEP 4 - START zkDrop" bgColor="">
           &bull; Click on the button below to start signing your first Aleo

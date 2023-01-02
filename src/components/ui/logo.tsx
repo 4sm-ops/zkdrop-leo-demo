@@ -12,7 +12,7 @@ const Logo: React.FC<React.SVGAttributes<{}>> = (props) => {
 
   return (
     <AnchorLink
-      href="https://leo.app"
+      href="https://zkdrop.xyz"
       className="flex w-28 outline-none sm:w-32 4xl:w-36"
       {...props}
     >

@@ -14,25 +14,20 @@ import { WalletNotConnectedError } from '@demox-labs/aleo-wallet-adapter-base';
 import FilesTable from '@/components/ui/files';
 
 import Table from '@/components/ui/table';
+import TutorialTable from '@/components/ui/table_mui';
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const SignPage: NextPageWithLayout = () => {
-  const stockItems = [
-    {
-      id: 1,
-      name: 'Pencil',
-      count: 3,
-    },
-    {
-      id: 2,
-      name: 'Paper',
-      count: 4,
-    },
-    {
-      id: 3,
-      name: 'Scissors',
-      count: 4,
-    },
-  ];
+  const [age, setIPFS] = React.useState('');
+
+  const handleChange1 = (event) => {
+    setIPFS(event.target.value);
+  };
 
   const { wallet, publicKey, sendTransaction, signAllTransactions } =
     useWallet();
@@ -85,6 +80,13 @@ const SignPage: NextPageWithLayout = () => {
     fetchData();
   }, []);
 
+  const fileMenuItems = posts.map((item) => (
+    <MenuItem key={item.ipfs_hash} value={item.ipfs_hash}>
+      {item.ipfs_hash}
+    </MenuItem>
+  ));
+
+  console.log(fileMenuItems);
   return (
     <>
       <NextSeo
@@ -94,13 +96,42 @@ const SignPage: NextPageWithLayout = () => {
       <FilesTable aleo_address={publicKey} />
 
       <Trade>
-        <Table
+        <TutorialTable
           headers={{
-            id: 'Sender',
-            count: 'IPFS Hash',
+            sender: 'Sender',
+            hash: 'IPFS Hash',
+            url: 'File URL',
           }}
           items={posts}
         />
+
+        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="demo-simple-select-required-label">
+            IPFS Hash
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-required-label"
+            id="demo-simple-select-required"
+            value={age}
+            label="IPFS Hash *"
+            onChange={handleChange1}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {fileMenuItems}
+          </Select>
+          <FormHelperText>Received file hash</FormHelperText>
+        </FormControl>
+
+        {/* <Table
+          headers={{
+            sender: 'Sender',
+            hash: 'IPFS Hash',
+            url: 'File URL'
+          }}
+          items={posts}
+        /> */}
         <form
           className="relative flex w-full rounded-full md:w-auto"
           noValidate

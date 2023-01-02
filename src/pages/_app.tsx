@@ -14,6 +14,7 @@ import 'swiper/css';
 import '@/assets/css/scrollbar.css';
 import '@/assets/css/globals.css';
 import '@/assets/css/range-slider.css';
+import '@/assets/css/table-text.css';
 import { LeoWalletAdapter } from '@demox-labs/aleo-wallet-adapter-leo';
 import { DecryptPermission } from '@demox-labs/aleo-wallet-adapter-base';
 import { WalletProvider } from '@demox-labs/aleo-wallet-adapter-react';

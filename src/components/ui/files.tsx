@@ -21,36 +21,53 @@ export default function FilesTable({
             `https://api.zkdrop.xyz/api/receive/${aleo_address}`
           );
 
-          console.log('111');
-          if (res.data.ipfs_hash) {
-            console.log('222');
-            let stored = localStorage.getItem('received_files');
+          // var fromAPI = JSON.parse(res.data);
 
-            if (stored) {
-              var filesFromLocalStorage = JSON.parse(stored);
+          // console.log(res.data);
 
-              delete res.data.recipient_address;
-              const newJson = res.data;
+          // array of json objects with list of received files
 
-              filesFromLocalStorage.push(newJson);
+          res.data.forEach((element) => {
+            if (element.ipfs_hash) {
+              // local storage has a list of previously received files
+              let stored = localStorage.getItem('received_files');
 
-              // filesFromLocalStorage.push(res.data);
-              console.log(filesFromLocalStorage);
+              if (stored) {
+                // we parse data from localstorage
+                var filesFromLocalStorage = JSON.parse(stored);
 
-              // localStorage.setItem("received_files", JSON.stringify(filesFromLocalStorage));
-              localStorage.setItem(
-                'received_files',
-                JSON.stringify(filesFromLocalStorage)
-              );
-            } else {
-              delete res.data.recipient_address;
-              localStorage.setItem(
-                'received_files',
-                '[' + JSON.stringify(res.data) + ']'
-              );
+                // remove unused json element from API data - recipient_address
+
+                delete element.recipient_address;
+
+                // we push data to localshorage array
+                const newJson = element;
+
+                var check_ifps_hash_exists = filesFromLocalStorage.filter(
+                  (x) => x.ipfs_hash === element.ipfs_hash
+                );
+                console.log('searching for dublicates.. ');
+                console.log(check_ifps_hash_exists);
+                if (check_ifps_hash_exists.length === 0) {
+                  filesFromLocalStorage.push(newJson);
+                }
+
+                // then write data to local storage
+
+                localStorage.setItem(
+                  'received_files',
+                  JSON.stringify(filesFromLocalStorage)
+                );
+              } else {
+                delete element.recipient_address;
+                localStorage.setItem(
+                  'received_files',
+                  '[' + JSON.stringify(element) + ']'
+                );
+              }
             }
-          }
-          setPosts(res.data);
+          });
+          // setPosts(res.data);
         }
       } catch (err) {
         console.log(err);
@@ -61,8 +78,8 @@ export default function FilesTable({
 
   return (
     <div>
-      Sender: {posts.sender_address} Recepient: {posts.recipient_address} File:{' '}
-      {posts.ipfs_hash}{' '}
+      {/* Sender: {posts.sender_address} Recepient: {posts.recipient_address} File:{' '}
+      {posts.ipfs_hash}{' '} */}
     </div>
   );
 }
