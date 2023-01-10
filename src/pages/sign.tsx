@@ -22,6 +22,8 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
+import Decrypt from '@/pages/nucypher';
+
 const SignPage: NextPageWithLayout = () => {
   const [age, setIPFS] = React.useState('');
 
@@ -85,6 +87,18 @@ const SignPage: NextPageWithLayout = () => {
       {item.ipfs_hash}
     </MenuItem>
   ));
+  const selectSx: SxProps = {
+    // border: '2px solid rgba(55,65,81)',
+    // width: 1,
+    // marginLeft: 'auto',
+    // border: '2px solid rgba(55,65,81)',
+    backgroundColor: 'white',
+    marginRight: 'auto',
+    // marginTop: 0,
+    marginBottom: 0,
+    borderRadius: 2,
+    width: 700,
+  };
 
   console.log(fileMenuItems);
   return (
@@ -96,20 +110,23 @@ const SignPage: NextPageWithLayout = () => {
       <FilesTable aleo_address={publicKey} />
 
       <Trade>
+        {/* <Decrypt /> */}
+
         <TutorialTable
           headers={{
-            sender: 'Sender',
-            hash: 'IPFS Hash',
-            url: 'File URL',
+            sender: 'SENDER',
+            hash: 'IPFS HASH',
+            url: 'FILE URL',
           }}
           items={posts}
         />
 
-        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+        <FormControl required sx={{ mb: 2, minWidth: 120 }}>
           <InputLabel id="demo-simple-select-required-label">
             IPFS Hash
           </InputLabel>
           <Select
+            sx={selectSx}
             labelId="demo-simple-select-required-label"
             id="demo-simple-select-required"
             value={age}
@@ -124,14 +141,6 @@ const SignPage: NextPageWithLayout = () => {
           <FormHelperText>Received file hash</FormHelperText>
         </FormControl>
 
-        {/* <Table
-          headers={{
-            sender: 'Sender',
-            hash: 'IPFS Hash',
-            url: 'File URL'
-          }}
-          items={posts}
-        /> */}
         <form
           className="relative flex w-full rounded-full md:w-auto"
           noValidate

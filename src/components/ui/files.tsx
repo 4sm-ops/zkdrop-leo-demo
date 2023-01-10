@@ -46,8 +46,8 @@ export default function FilesTable({
                 var check_ifps_hash_exists = filesFromLocalStorage.filter(
                   (x) => x.ipfs_hash === element.ipfs_hash
                 );
-                console.log('searching for dublicates.. ');
-                console.log(check_ifps_hash_exists);
+                // console.log('searching for dublicates.. ');
+                // console.log(check_ifps_hash_exists);
                 if (check_ifps_hash_exists.length === 0) {
                   filesFromLocalStorage.push(newJson);
                 }

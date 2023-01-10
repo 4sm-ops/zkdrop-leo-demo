@@ -18,6 +18,12 @@ import { WalletNotConnectedError } from '@demox-labs/aleo-wallet-adapter-base';
 
 import { useQRCode } from 'next-qrcode';
 
+// nucypher
+
+import * as umbral from '@nucypher/umbral-pre';
+
+// import Decrypt from nucypher;
+
 type SectionProps = {
   title: string;
   bgColor: string;
@@ -76,6 +82,25 @@ function QR({ aleo_address, children }: React.PropsWithChildren<QRProps>) {
   );
 }
 
+function NuCypher({
+  aleo_address,
+  children,
+}: React.PropsWithChildren<QRProps>) {
+  const url = 'https://www.zkdrop.xyz/api/account/' + aleo_address;
+
+  var crypto = require('crypto');
+  var msg = 'APrivateKey1zkp5WAPttLhnHK4ixtifBYNHMWTAH5cfdjWTUVNiLwkB6cb';
+  var shasum = crypto.createHash('sha256').update(msg);
+  var hashDigest = shasum.digest();
+  console.log(hashDigest);
+
+  var umbralPrivateKey = umbral.SecretKey.fromBytes(hashDigest);
+
+  console.log(umbralPrivateKey.publicKey().toString());
+
+  return 123;
+}
+
 const GettingStartedPage: NextPageWithLayout = () => {
   const { wallet, publicKey, sendTransaction, signAllTransactions } =
     useWallet();
@@ -124,6 +149,7 @@ const GettingStartedPage: NextPageWithLayout = () => {
           <br />
           <WalletMultiButton className="bg-[#154bf9]" />
           <QR aleo_address={publicKey} />
+          {/* <NuCypher aleo_address={publicKey} /> */}
         </Section>
         <Section title="STEP 4 - START zkDrop" bgColor="">
           &bull; Click on the button below to start signing your first Aleo
